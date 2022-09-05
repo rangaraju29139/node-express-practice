@@ -1,3 +1,3 @@
-const alternate=require(./alternate);
+const alternate = require("./alternate");
 
 console.log(alternate);
