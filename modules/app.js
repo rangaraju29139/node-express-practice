@@ -8,4 +8,4 @@ require("./utils");
 // sayHi(names.john);
 // sayHi(peter);
 
-console.log(module.exports);
+// console.log(module.exports);
