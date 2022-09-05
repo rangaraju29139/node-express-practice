@@ -5,5 +5,6 @@ const second = readFileSync("./content/output.txt", "utf8");
 
 writeFileSync(
   "./content/sync-output.txt",
-  `the sync output is ${first}, ${second}`
+  `the sync output is ${first}, ${second}`,
+  { flag: "a" }
 );
