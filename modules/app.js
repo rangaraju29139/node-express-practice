@@ -1,6 +1,6 @@
 const names = require("./names");
-console.log(names);
+const sayHi = require("./utils");
 
-// sayHi("rangaraju");
-// sayHi(john);
-// sayHi(peter);
+sayHi("rangaraju");
+sayHi(names.john);
+sayHi(names.peter);
