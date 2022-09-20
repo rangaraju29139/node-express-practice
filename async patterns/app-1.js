@@ -1,6 +1,9 @@
 const { rejects } = require("assert");
-const { readFile } = require("fs");
+const { readFile, writeFile } = require("fs");
 const { resolve } = require("path");
+const util = require("util");
+const readFilePromise = util.promisify(readFile);
+const writeFilePromise = util.promisify(writeFile);
 
 const getText = (path) => {
   return new Promise((resolve, reject) => {
@@ -20,7 +23,15 @@ const getText = (path) => {
 
 const start = async () => {
   try {
-    const first = await getText("./async patterns/content/first.txt");
+    const first = await readFilePromise(
+      "./async patterns/content/first.txt",
+      "utf-8"
+    );
+    await writeFilePromise(
+      "./async patterns/content/new-file.txt",
+      `this is the Awesome content : ${first}`
+    );
+
     console.log(first);
   } catch (error) {
     console.log(error);
