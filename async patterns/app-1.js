@@ -14,6 +14,12 @@ const getText = (path) => {
   });
 };
 
-getText("./async patterns/content/first.txt")
-  .then((result) => console.log(result))
-  .catch((err) => console.log(err));
+// getText("./async patterns/content/first.txt")
+//   .then((result) => console.log(result))
+//   .catch((err) => console.log(err));
+
+const start = async () => {
+  const first = await getText("./async patterns/content/first.txt");
+  console.log(first);
+};
+start();
