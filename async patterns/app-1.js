@@ -19,7 +19,11 @@ const getText = (path) => {
 //   .catch((err) => console.log(err));
 
 const start = async () => {
-  const first = await getText("./async patterns/content/first.txt");
-  console.log(first);
+  try {
+    const first = await getText("./async patterns/content/first.txt");
+    console.log(first);
+  } catch (error) {
+    console.log(error);
+  }
 };
 start();
