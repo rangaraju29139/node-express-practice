@@ -4,11 +4,14 @@ const logger = require("./logger.js");
 
 // req => middleware => res
 // middle ware to all the functions
-app.use(logger);
+// app.use(logger);
 
 app.get("/", (req, res) => {
   res.send("home page");
 });
+
+// middle ware to all the functions below the app.use and the middle ware not applicable to /
+app.use(logger);
 
 app.get("/about", (req, res) => {
   res.send("about page");
