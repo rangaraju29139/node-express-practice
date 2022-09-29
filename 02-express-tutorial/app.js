@@ -6,10 +6,7 @@ app.get("/", (req, res) => {
   res.send(`<h1>Home page</h1><a href='/api/products'>Products</a>`);
 });
 app.get("/api/products", (req, res) => {
-  const newProducts = products.map((product) => {
-    const { id, name, desc } = product;
-    return { id, name, desc };
-  });
+  const newProducts = products.find((product) => product.id === 1);
   res.json(newProducts);
 });
 
