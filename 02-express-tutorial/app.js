@@ -3,13 +3,19 @@ const app = express();
 const logger = require("./logger.js");
 
 // req => middleware => res
+// middle ware to all the functions
+app.use(logger);
 
-app.get("/", logger, (req, res) => {
+app.get("/", (req, res) => {
   res.send("home page");
 });
 
-app.get("/about", logger, (req, res) => {
+app.get("/about", (req, res) => {
   res.send("about page");
+});
+
+app.get("/api/products", (req, res) => {
+  res.send("products");
 });
 
 app.listen(5000, () => {
