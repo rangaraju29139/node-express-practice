@@ -3,11 +3,17 @@ const app = express();
 const { products } = require("./data.js");
 
 app.get("/", (req, res) => {
-  res.send(`<h1>Home page</h1><a href='/api/products'>Products</a>`);
+  res.send(`<h1>Home page</h1><a href='/api/products/1'>Products</a>`);
 });
-app.get("/api/products", (req, res) => {
-  const newProducts = products.find((product) => product.id === 1);
-  res.json(newProducts);
+app.get("/api/products/:productId", (req, res) => {
+  const { productId } = req.params;
+  const singleProduct = products.find(
+    (product) => product.id === Number(productId)
+  );
+  if (!singleProduct) {
+    res.send("product not found");
+  }
+  res.json(singleProduct);
 });
 
 app.all("*", (req, res) => {
