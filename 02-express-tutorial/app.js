@@ -1,49 +1,21 @@
 const express = require("express");
 const app = express();
-const { products } = require("./data.js");
 
-app.get("/", (req, res) => {
-  res.send(`<h1>Home page</h1><a href='/api/products/1'>Products</a>`);
-});
-app.get("/api/products/:productId", (req, res) => {
-  const { productId } = req.params;
-  const singleProduct = products.find(
-    (product) => product.id === Number(productId)
-  );
-  if (!singleProduct) {
-    res.status(404).send("product not found");
-  }
-  res.json(singleProduct);
+// req => middleware => res
+
+const logger = (req, res) => {
+  const method = req.method;
+  const url = req.url;
+  const time = new Date().getFullYear();
+  console.log(method, url, time);
+};
+
+app.get("/", logger, (req, res) => {
+  res.send("home page");
 });
 
-app.get("/api/v1/query", (req, res) => {
-  console.log(req.query);
-  const { search, limit } = req.query;
-  var sortedProducts = [...products];
-  if (search) {
-    sortedProducts = sortedProducts.filter((product) => {
-      return product.name.startsWith(search);
-    });
-  }
-  if (limit) {
-    sortedProducts = sortedProducts.slice(0, Number(limit));
-  }
-  if (sortedProducts.length < 1) {
-    res.status(200).json({ success: true, data: [] });
-  } else {
-    res.json(sortedProducts);
-  }
-
-  //   res.send("hello world");
-});
-
-app.get("/api/products/:productId/reviews/:reviewId", (req, res) => {
-  console.log(req.params);
-  res.send("hello world");
-});
-
-app.all("*", (req, res) => {
-  res.status(404).send(`page not found`);
+app.get("/about", (req, res) => {
+  res.send("about page");
 });
 
 app.listen(5000, () => {
