@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
+const { products } = require("./data.js");
+
 app.get("/", (req, res) => {
-  res.json([{ name: "rangaraju" }, { name: "penmetsa" }]);
+  res.json(products);
 });
 
 app.all("*", (req, res) => {
