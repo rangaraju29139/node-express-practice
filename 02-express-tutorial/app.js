@@ -1,11 +1,7 @@
 const express = require("express");
 const app = express();
-const path = require("path");
-
-app.use(express.static("./public"));
-
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./navbar-app/index.html"));
+  res.json([{ name: "rangaraju" }, { name: "penmetsa" }]);
 });
 
 app.all("*", (req, res) => {
@@ -13,5 +9,5 @@ app.all("*", (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Server listening on port 8080");
+  console.log("server listening at port 5000");
 });
