@@ -1,26 +1,17 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+
+app.use(express.static("./public"));
 
 app.get("/", (req, res) => {
-  res.status(200).send(`<h1>Home page</h1>`);
-});
-
-app.get("/about", (req, res) => {
-  res.status(200).send(`<h1>About Page</h1>`);
+  res.sendFile(path.resolve(__dirname, "./navbar-app/index.html"));
 });
 
 app.all("*", (req, res) => {
-  res.status(404).send(`<h1>Page not found</h1>`);
+  res.status(404).send(`page not found`);
 });
 
 app.listen(5000, () => {
-  console.log("server is listening at port 5000");
+  console.log("Server listening on port 8080");
 });
-
-// app.get
-// app.post
-//app.put
-//app.delete
-//app.all
-//app.use
-//app.listen
