@@ -18,7 +18,23 @@ app.get("/api/products/:productId", (req, res) => {
 
 app.get("/api/v1/query", (req, res) => {
   console.log(req.query);
-  res.send("hello world");
+  const { search, limit } = req.query;
+  var sortedProducts = [...products];
+  if (search) {
+    sortedProducts = sortedProducts.filter((product) => {
+      return product.name.startsWith(search);
+    });
+  }
+  if (limit) {
+    sortedProducts = sortedProducts.slice(0, Number(limit));
+  }
+  if (sortedProducts.length < 1) {
+    res.send("no products found");
+  } else {
+    res.json(sortedProducts);
+  }
+
+  //   res.send("hello world");
 });
 
 app.get("/api/products/:productId/reviews/:reviewId", (req, res) => {
