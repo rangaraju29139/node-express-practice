@@ -1,49 +1,33 @@
 const express = require("express");
 const app = express();
-const { products } = require("./data.js");
+const logger = require("./logger.js");
+const authorize = require("./authorize.js");
+
+// req => middleware => res
+// middle ware to all the functions
+// app.use(logger);
+
+// middle ware for certain pattern
+
+// app.use("/api", logger);
+//this is applicable to all the request of /api and sub children
+
+//order matters
+app.use([authorize, logger]);
 
 app.get("/", (req, res) => {
-  res.send(`<h1>Home page</h1><a href='/api/products/1'>Products</a>`);
-});
-app.get("/api/products/:productId", (req, res) => {
-  const { productId } = req.params;
-  const singleProduct = products.find(
-    (product) => product.id === Number(productId)
-  );
-  if (!singleProduct) {
-    res.status(404).send("product not found");
-  }
-  res.json(singleProduct);
+  res.send("home page");
 });
 
-app.get("/api/v1/query", (req, res) => {
-  console.log(req.query);
-  const { search, limit } = req.query;
-  var sortedProducts = [...products];
-  if (search) {
-    sortedProducts = sortedProducts.filter((product) => {
-      return product.name.startsWith(search);
-    });
-  }
-  if (limit) {
-    sortedProducts = sortedProducts.slice(0, Number(limit));
-  }
-  if (sortedProducts.length < 1) {
-    res.status(200).json({ success: true, data: [] });
-  } else {
-    res.json(sortedProducts);
-  }
+// middle ware to all the functions below the app.use and the middle ware not applicable to /
+// app.use(logger);
 
-  //   res.send("hello world");
+app.get("/about", (req, res) => {
+  res.send("about page");
 });
 
-app.get("/api/products/:productId/reviews/:reviewId", (req, res) => {
-  console.log(req.params);
-  res.send("hello world");
-});
-
-app.all("*", (req, res) => {
-  res.status(404).send(`page not found`);
+app.get("/api/products", (req, res) => {
+  res.send("products");
 });
 
 app.listen(5000, () => {
