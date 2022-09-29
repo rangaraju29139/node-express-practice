@@ -6,12 +6,18 @@ const logger = require("./logger.js");
 // middle ware to all the functions
 // app.use(logger);
 
+// middle ware for certain pattern
+
+app.use("/api", logger);
+
+//this is applicable to all the request of /api and sub children
+
 app.get("/", (req, res) => {
   res.send("home page");
 });
 
 // middle ware to all the functions below the app.use and the middle ware not applicable to /
-app.use(logger);
+// app.use(logger);
 
 app.get("/about", (req, res) => {
   res.send("about page");
