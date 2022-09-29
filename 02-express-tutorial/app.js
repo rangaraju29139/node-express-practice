@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const logger = require("./logger.js");
+const authorize = require("./authorize.js");
 
 // req => middleware => res
 // middle ware to all the functions
@@ -8,9 +9,11 @@ const logger = require("./logger.js");
 
 // middle ware for certain pattern
 
-app.use("/api", logger);
-
+// app.use("/api", logger);
 //this is applicable to all the request of /api and sub children
+
+//order matters
+app.use([authorize, logger]);
 
 app.get("/", (req, res) => {
   res.send("home page");
