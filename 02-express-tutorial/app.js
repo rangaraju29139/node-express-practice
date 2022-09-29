@@ -11,7 +11,7 @@ app.get("/api/products/:productId", (req, res) => {
     (product) => product.id === Number(productId)
   );
   if (!singleProduct) {
-    res.send("product not found");
+    res.status(404).send("product not found");
   }
   res.json(singleProduct);
 });
