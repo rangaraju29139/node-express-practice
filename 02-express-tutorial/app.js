@@ -61,6 +61,25 @@ app.put("/api/people/:id", (req, res) => {
   }
 });
 
+app.delete("/api/people/:id", (req, res) => {
+  const { id } = req.params;
+  const personName = people.find((person) => person.id === Number(id));
+  console.log(personName);
+  if (personName) {
+    const newPeople = people.map((person) => {
+      if (person.id != Number(id)) {
+        return person;
+      }
+    });
+    return res.status(200).json({ success: true, data: newPeople });
+  } else {
+    return res.status(404).json({
+      success: false,
+      msg: "could not find the person with given id",
+    });
+  }
+});
+
 app.listen(5000, () => {
   console.log("server listening at port 5000");
 });
